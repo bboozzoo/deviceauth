@@ -48,7 +48,12 @@ before_install:
     - go get -u github.com/fzipp/gocyclo
 
     # Install swagger-cli
-    - sudo apt-get -qq update && sudo apt-get -qq install -y npm e2tools
+
+    # NOTE: this used to install `nodejs 0.10.25~dfsg2-2ubuntu1` and npm, but
+    # then travis changed their default repos and `nodejs 0.12.7-rwky1~trusty`
+    # will get installed now, which in turn ship /usr/bin/npm thus causing
+    # conflict with `npm` package from official repositories
+    - sudo apt-get -qq update && sudo apt-get -qq install -y nodejs e2tools
     - sudo npm install -g swagger-cli
 
     # Install yaml python module
